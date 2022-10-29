@@ -1,2 +1,6 @@
 /logs/
 /.idea/
+/venv/
+
+/archive/.ipynb_checkpoints/
+/archive/Untitled.ipynb
