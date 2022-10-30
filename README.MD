@@ -1,4 +1,3 @@
-# DAG
 
 Скачаем docker-compose с настройками airflow
 ```bash
@@ -12,7 +11,7 @@ docker-compose -p airflow_ up -d
 
 Запустим отдельный контейнер с PostgreSQL на 1-ом порту
 ```bash
-docker run -d --name postgres_ -e POSTGRES_PASSWORD=postgres -p 1:5432 postgres` 
+docker run -d --name postgres_ -e POSTGRES_PASSWORD=postgres -p 1:5432 postgres 
 ```
 
 Создадим в проекте виртуальное окружение для python 
