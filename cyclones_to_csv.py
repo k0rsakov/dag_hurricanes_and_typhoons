@@ -101,7 +101,7 @@ class CyclonesToCSV:
         if sum(counter_of_day) == 0:
             print('Нет циклонов за этот месяц')
         else:
-            print('Данные находятся в папке cyclones_per_day')
+            print('Данные загружены и находятся в папке cyclones_per_day')
 
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()

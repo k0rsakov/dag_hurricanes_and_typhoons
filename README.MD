@@ -1,13 +1,4 @@
-
-Скачаем docker-compose с настройками airflow
-```bash
-curl -LfO 'https://airflow.apache.org/docs/apache-airflow/2.4.2/docker-compose.yaml'
-```
-
-Запустим Airflow
-```bash
-docker-compose -p airflow_ up -d
-```
+# ETL-скрипт
 
 Запустим отдельный контейнер с PostgreSQL на 1-ом порту
 ```bash
@@ -41,4 +32,10 @@ python load_csv_to_db.py -p 'archive/atlantic.csv'
 
 ```bash
 python load_csv_to_db.py -p 'archive/pacific.csv'
+```
+
+Для разбиения данных по дням в .csv файлы нужно выполнить команду, где
+`number_of_month` – это номер месяца, за который необходима загрузка данных.
+```bash
+python cyclones_to_csv.py -n number_of_month 
 ```
