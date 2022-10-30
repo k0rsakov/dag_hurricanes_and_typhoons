@@ -1,7 +1,6 @@
 import argparse
 import pandas as pd
-import psycopg2
-import sqlalchemy.exc
+from sqlalchemy.exc import OperationalError
 from sqlalchemy import create_engine
 
 def load_data_to_db(path_to_file: str):
@@ -49,8 +48,7 @@ if __name__ == '__main__':
         print('Путь к файлу, должен быть в str формате')
     except FileNotFoundError:
         print('Неверный путь к файлу или наименование')
-    except sqlalchemy.exc.OperationalError:
+    except OperationalError:
         print('Проверьте подключение к БД. Нет подключения к БД на 1-ом порту')
     except Exception as ex:
-        print('Посмотрите документацию, через команду `python load_csv_to_db.py -h`')
         raise ex
