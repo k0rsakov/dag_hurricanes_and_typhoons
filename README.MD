@@ -37,5 +37,5 @@ python load_csv_to_db.py -p 'archive/pacific.csv'
 Для разбиения данных по дням в .csv файлы нужно выполнить команду, где
 `number_of_month` – это номер месяца, за который необходима загрузка данных.
 ```bash
-python cyclones_to_csv.py -n number_of_month 
+python cyclones_to_csv.py -n <number_of_month> 
 ```
