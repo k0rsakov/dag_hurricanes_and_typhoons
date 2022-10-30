@@ -11,7 +11,11 @@ class CyclonesToCSV:
         self.engine = create_engine('postgresql://postgres:postgres@localhost:1/postgres')
 
     def get_days_of_month(self) -> List[int]:
-        """"""
+        """
+        Получаем список дней за выбранный месяц.
+
+        :return: Возвращает список дней, в которых были циклоны
+        """
         query = f'''
         SELECT 
             DISTINCT days::integer 
@@ -38,12 +42,16 @@ class CyclonesToCSV:
         return df.days.to_list()
 
     def write_days_to_csv(self):
-        """"""
+        """
+        Записывает каждый день в отдельный .csv файл
+        """
 
+        # Получаем список дней за указанный месяц
         days = self.get_days_of_month()
+        # Создаем счетчик дней со значениями, для дальнейшего сообщения пользователю
         counter_of_day = []
+        # Запускаем цикл по каждому дню в месяце, по которым есть значения
         for day in days:
-
             query = f'''
             WITH pre_main AS 
             (
@@ -81,14 +89,19 @@ class CyclonesToCSV:
             '''
 
             df = pd.read_sql(sql=query, con=self.engine)
+            # добавляем значение в наш счетчик
             counter_of_day.append(len(df))
+            # Смотрим уникальные даты за данный месяц и день
             name_of_day = df.date.unique()
+            # Пробегаемся по каждой дате и помещаем её в отдельный .csv файл
             for date in name_of_day:
                 df_ = df[df.date == date]
                 df_.to_csv(f'cyclones_per_day/cyclones_{date}.csv', index=False)
-
+        # Уведомление пользователю, если за данный месяц нет дней с циклонами
         if sum(counter_of_day) == 0:
             print('Нет циклонов за этот месяц')
+        else:
+            print('Данные находятся в папке cyclones_per_day')
 
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
@@ -98,9 +111,14 @@ if __name__ == '__main__':
     )
 
     args = vars(ap.parse_args())
+    number_of_month = int(args['n'])
 
-    object_ = CyclonesToCSV(number_of_month=args['n'])
+    if isinstance(number_of_month, int) and 12 >= number_of_month >= 1:
+        object_ = CyclonesToCSV(number_of_month=number_of_month)
+        object_.write_days_to_csv()
+    else:
+        print('Необходимо передать номер месяца (1, 2, ..., 12)')
 
-    object_.write_days_to_csv()
 
-    # load_data_to_db(path_to_file=args['p'])
+
+

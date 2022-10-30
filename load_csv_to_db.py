@@ -5,9 +5,9 @@ from sqlalchemy import create_engine
 
 def load_data_to_db(path_to_file: str):
     """
+    Загружает указанный .csv файл в таблицу `cyclones`
 
-    :param path_to_file:
-    :return:
+    :param path_to_file: путь к файлу
     """
 
     df = pd.read_csv(path_to_file)
